@@ -41,5 +41,6 @@ desktop.ini
 # Temporary notebooks/checkpoints
 .ipynb_checkpoints/
 
-# Misc markdown files
+# Misc files
 docs/
+linkedin.cpp

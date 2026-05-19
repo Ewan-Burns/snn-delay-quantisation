@@ -1,12 +1,7 @@
-"""Toy delay-learning quantisation demo.
-
-This script is an independent scaffold for the application idea. It does not
-implement DLTC and does not use copied DLTC code. It trains a tiny temporal
-pattern classifier with learnable per-class delays, then evaluates how simple
-post-training weight and delay quantisation changes accuracy and estimated
-parameter memory.
-
-Inline comments mark the main modelling assumptions and limitations.
+"""
+This code is for exploratory purposes only. It:
+- Trains a tiny temporal pattern classifier with learnable per-class delays.
+- Evaluates how simple post-training weight and delay quantisation changes accuracy and estimated parameter memory.
 """
 
 from __future__ import annotations
@@ -61,9 +56,8 @@ class DelayClassifier(nn.Module):
         weights = self.weights() if weights is None else weights
         delays = self.delays() if delays is None else delays
 
-        # Toy temporal-alignment mechanism: delays shift input spike times, and
-        # a Gaussian kernel rewards arrivals close to a class-independent
-        # reference time. This is not intended as a biophysical neuron model.
+        # Toy temporal-alignment mechanism: delays shift input spike times, and a Gaussian kernel rewards arrivals close to a class-independent reference time.
+        # This is not intended as a biophysical neuron model.
         aligned = spike_times.unsqueeze(-1) + delays.unsqueeze(0)
         temporal_match = torch.exp(
             -0.5 * ((aligned - self.cfg.reference_time) / self.cfg.kernel_sigma) ** 2
@@ -74,9 +68,8 @@ class DelayClassifier(nn.Module):
 def make_data(cfg: Config) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
     rng = np.random.default_rng(cfg.seed)
 
-    # Each class is defined by a latent spike-time template. Samples are noisy
-    # observations of that template, making the task a minimal proxy for
-    # temporal coding rather than an image or benchmark neuromorphic dataset.
+    #Classes are defined by a latent spike-time template.
+    # Samples are noisy observations of that template, making the task a minimal proxy for temporal coding.
     true_delays = rng.uniform(1.5, cfg.max_delay - 1.0, size=(cfg.num_classes, cfg.input_dim))
     class_centres = cfg.reference_time - true_delays
 

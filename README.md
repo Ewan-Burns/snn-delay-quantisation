@@ -21,6 +21,6 @@ python .\snn-delay-quantisation\scripts\toy_delay_quantization_demo.py
 
 The script trains a small synthetic temporal-pattern classifier with learnable delays, then evaluates post-training weight and delay quantisation.
 
-## Licensing Note
+# Licensing note
 
-The DLTC paper points to public code at `https://github.com/sunpengfei1122/DLTC`. Treat that code as a reference for private study unless a clear license is confirmed. Do not publish copied or modified DLTC source code without permission or a license that permits reuse.
+Did not use or modify any code from the DLTC github repos, wasn't sure about licensing rules...
